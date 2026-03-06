@@ -27,9 +27,9 @@ docker run -d \
     ghcr.io/doganm95/samba-server:latest
 ```
 
-- `SAMBA_USER`: Any username of your choice, used to authenticate
-- `SAMBA_PASS`: The respective password
-- `SAMBA_SHARE`: A share-name of your choice, in this example `myshare`
+- `SAMBA_USER`: Any username of your choice, used to authenticate. Default: `root`
+- `SAMBA_PASS`: The respective password. Default: `pass`
+- `SAMBA_SHARE`: A share-name of your choice, in this example `myshare`. Default: `SHARE`
 - `.../:/storage/:rw `: The folder to be bound, with RW access, replace left path (...) with the parent folder to be served
 
 ### Client
