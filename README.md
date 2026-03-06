@@ -9,6 +9,9 @@ This is a non-strict samba server for linux hosts running on operating systems t
 - Specifically made for systems, where `chmod` or `chown` are not an option
 - Never changes permissions of the host system's data
 - Allows any username to be used (including `root`)
+- Default permissions when a file is created/copied via SMB
+    - File: `-rwxr--r--  1 root root`
+    - Folder: `drwxr-xr-x  2 root root` 
 
 ## Setup
 
