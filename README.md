@@ -1,3 +1,29 @@
-# samba
-Dockerized samba server
+# Intro
 
+This is a non-strict samba server for linux hosts running on operating systems that do everything as root (like Ubuntu Server) to keep the permission structure homogenous, without having to ever `chmod` or `chown` anything.
+
+## Notes
+
+- Allows full RW access to the mounted docker folder
+- Allows being UID 0 & GID 0
+- Specifically made for systems, where `chmod` or `chown` are not an option
+- Never changes permissions of the host system's data
+- Allows any username to be used (including `root`)
+
+## Setup
+
+```shell
+docker run -d \
+    --name doganm95-samba \
+    -e "SAMBA_USER=any_user_name" \
+    -e "SAMBA_PASS=anyPassword" \
+    -p 137-139:137-139 \
+    -p 445:445 \
+    --pull always \
+    -v "/homes/root/:/storage/:rw" \
+    ghcr.io/doganm95/samba-server:latest
+```
+
+## Warning
+
+The builders of ftp, smb, etc put effort into not allowing root users from authenticating due to security reasons. This container is not meant to be exposed (port-forwarded) to the internet ever. To use it from anywhere outside your home network, create a VPN connection using e.g. Wireguard / Wg-Easy and it should work fine.
