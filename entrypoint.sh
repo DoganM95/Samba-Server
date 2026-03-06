@@ -4,6 +4,7 @@ set -e
 # Default credentials
 SAMBA_USER=${SAMBA_USER:-root}
 SAMBA_PASS=${SAMBA_PASS:-pass}
+SAMBA_SHARE=${SAMBA_SHARE:-SHARE}
 
 # Create the Linux user if it doesn't exist
 if ! id "$SAMBA_USER" >/dev/null 2>&1; then
