@@ -12,17 +12,28 @@ This is a non-strict samba server for linux hosts running on operating systems t
 
 ## Setup
 
+### Server
+
 ```shell
 docker run -d \
     --name doganm95-samba \
     -e "SAMBA_USER=any_user_name" \
     -e "SAMBA_PASS=anyPassword" \
+    -e "SAMBA_SHARE=myshare" \
     -p 137-139:137-139 \
     -p 445:445 \
     --pull always \
     -v "/homes/root/:/storage/:rw" \
     ghcr.io/doganm95/samba-server:latest
 ```
+
+- `SAMBA_USER`: Any username of your choice, used to authenticate
+- `SAMBA_PASS`: The respective password
+- `SAMBA_SHARE`: A share-name of your choice, in this example `myshare`
+
+### Client
+
+On windows you can just map a new network drive, with a connection to `\\<server-ip>\<share-name>`, e.g. `\\192.168.0.50\myshare`
 
 ## Warning
 
