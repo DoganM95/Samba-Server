@@ -20,4 +20,4 @@ echo "$SAMBA_USER:$SAMBA_PASS" | chpasswd
 (echo "$SAMBA_PASS"; echo "$SAMBA_PASS") | smbpasswd -s -a "$SAMBA_USER"
 
 # Start smbd in foreground (PID 1)
-exec /usr/sbin/smbd -F --no-process-group
+exec /usr/sbin/smbd -F --no-process-group -s /etc/samba/smb.conf
