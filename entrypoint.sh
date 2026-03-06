@@ -26,7 +26,7 @@ cat > /etc/samba/smb.conf <<EOL
    security = user
    map to guest = bad user
 
-[storage]
+[$SAMBA_SHARE]
    comment = Docker Storage Share
    path = /storage
    browseable = yes
