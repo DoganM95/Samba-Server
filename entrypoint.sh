@@ -20,4 +20,4 @@ echo "$SAMBA_USER:$SAMBA_PASS" | chpasswd
 sed -i "/^$SAMBA_USER$/d" /etc/samba/smbusers 2>/dev/null || true
 
 # Start Samba in foreground
-exec /usr/sbin/smbd -FS -s /etc/samba/smb.conf
+exec /usr/sbin/smbd -F -s /etc/samba/smb.conf
