@@ -5,7 +5,7 @@ This is a non-strict samba server for linux hosts running on operating systems t
 ## Notes
 
 - Allows full RW access to the mounted docker folder
-- Allows being UID 0 & GID 0
+- Uses UID 0 & GID 0
 - Specifically made for systems, where `chmod` or `chown` are not an option
 - Never changes permissions of the host system's data
 - Allows any username to be used (including `root`)
