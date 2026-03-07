@@ -43,4 +43,4 @@ On windows you can just map a new network drive, with a connection to `\\<server
 
 The builders of ftp, smb, etc put effort into not allowing root users from authenticating due to security reasons. This container is not meant to be exposed (port-forwarded) to the internet ever. To use it from anywhere outside your home network, create a VPN connection using e.g. Wireguard / Wg-Easy and it should work fine.  
   
-If your host is not running a root-only OS, you should probably not use this and check out [dockurr/samba](https://github.com/dockur/samba) instead.
+If your host is not running a root-focused OS, you should probably not use this and check out [dockurr/samba](https://github.com/dockur/samba) instead.
