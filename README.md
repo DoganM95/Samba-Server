@@ -22,11 +22,14 @@ docker run -d \
     --name doganm95-samba \
     -e "SAMBA_USER=any_user_name" \
     -e "SAMBA_PASS=anyPassword" \
-    -e "SAMBA_SHARE=myshare" \
+    -e "SAMBA_SHARES=movies:/storage/movies,backups:/storage/backups,photos:/storage/photos" \
     -p 137-139:137-139 \
     -p 445:445 \
     --pull always \
-    -v "/homes/root/:/storage/:rw" \
+    --restart unless-stopped \
+    -v "/homes/root/movies:/storage/movies:rw" \
+    -v "/homes/root/backups:/storage/backups:rw" \
+    -v "/homes/root/photos:/storage/photos:rw" \
     ghcr.io/doganm95/samba-server:latest
 ```
 
