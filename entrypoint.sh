@@ -4,7 +4,8 @@ set -e
 # Default credentials
 SAMBA_USER=${SAMBA_USER:-root}
 SAMBA_PASS=${SAMBA_PASS:-pass}
-SAMBA_SHARE=${SAMBA_SHARE:-SHARE}
+# Format: name1:/path1,name2:/path2,...
+SAMBA_SHARES=${SAMBA_SHARES:-SHARE:/storage}
 
 # Create the Linux user if it doesn't exist
 if ! id "$SAMBA_USER" >/dev/null 2>&1; then
@@ -14,10 +15,7 @@ fi
 # Set Samba password
 (echo "${SAMBA_PASS}"; echo "${SAMBA_PASS}") | smbpasswd -s -a "$SAMBA_USER"
 
-# Ensure storage directory exists
-mkdir -p /storage
-
-# Generate smb.conf dynamically
+# Base smb.conf
 cat > /etc/samba/smb.conf <<EOL
 [global]
    workgroup = WORKGROUP
@@ -26,15 +24,27 @@ cat > /etc/samba/smb.conf <<EOL
    max log size = 1000
    security = user
    map to guest = bad user
+EOL
 
-[$SAMBA_SHARE]
+# Append one share block per entry in SAMBA_SHARES
+OLD_IFS=$IFS
+IFS=','
+for entry in $SAMBA_SHARES; do
+    share_name=${entry%%:*}
+    share_path=${entry#*:}
+    mkdir -p "$share_path"
+    cat >> /etc/samba/smb.conf <<EOL
+
+[$share_name]
    comment = Docker Storage Share
-   path = /storage
+   path = $share_path
    browseable = yes
    read only = no
    guest ok = no
    valid users = $SAMBA_USER
 EOL
+done
+IFS=$OLD_IFS
 
 # Start Samba in background
 /usr/sbin/smbd -D --no-process-group -s /etc/samba/smb.conf
